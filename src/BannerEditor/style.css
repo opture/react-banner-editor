@@ -1,0 +1,8 @@
+.BannerEditor{
+  widtH:100%;
+  heighT:auto;
+}
+.BannerEditor .BannerEditor-editor{
+  box-sizing:border-box;
+  border:1px solid silver;
+}
