@@ -2,7 +2,22 @@
   widtH:100%;
   heighT:auto;
 }
+.BannerEditor .DraggableItem{
+  width:auto;
+  display:inline-block;
+  bordeR:1px dashed black;
+  margin:2px;
+  padding:2px 4px;
+}
 .BannerEditor .BannerEditor-editor{
+  position:relative;
   box-sizing:border-box;
   border:1px solid silver;
+}
+.BannerEditor .BannerElement.selected{
+  
+}
+.BannerEditor .BannerEditor-properties{
+  display:flex;
+  flex-flow:row nowrap;
 }
