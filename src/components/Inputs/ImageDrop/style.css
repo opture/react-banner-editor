@@ -1,0 +1,48 @@
+.ImageDrop {
+  position: relative;
+}
+
+.form-field.ImageDrop{
+  height:100%;
+  width:100%;
+  min-height:130px;
+  height:130px;
+}
+.form-field.ImageDrop > div{
+  width: 100%;
+  height: 100%;
+}
+.ImageDrop .removeWrapper {
+  position:absolute;
+  display: none;
+  top:10px;
+  transform:translateY(-50%);
+  right:4px;
+  text-align:right;
+  z-index: 100;
+}
+
+.ImageDrop:hover .removeWrapper {
+  display: inline-block;
+}
+
+.ImageDrop .removeWrapper .removeItem {
+  color:red;
+  font-weight:bolder;
+  cursor: pointer;
+}
+
+.imageDropzone{
+  height:100%;
+  border:1px dashed #dbdbdb;
+  position:relative;
+  overflow:hidden;
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:50% 50%;
+  margin:0 auto;
+  align-self:center;
+}
+.imageDropzone .imagePlaceHolder{
+  text-align:center;
+}

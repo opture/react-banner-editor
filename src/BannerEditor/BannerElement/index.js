@@ -22,7 +22,7 @@ class BannerElement extends Component {
         item={element}
         onItemClick={this.props.onClick}
       >
-        {element.type}
+        {element.content}
       </DraggableItem>
     );
   }

@@ -1,0 +1,54 @@
+.floatingWindow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
+.floatingWindow > .container {
+    position: absolute;
+    background: #122010;
+    color: #DFC48C;
+    box-shadow: 0.25rem 0.25rem 1.25rem rgb(0, 0, 0);
+    max-height: calc(96vh);
+    max-width: 96%;
+    min-width: 10rem;
+}
+
+.floatingWindow > .container > .header {
+    width: 100%;
+    height: 2rem;
+    background-color: grey;
+    line-height: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.floatingWindow > .container > .header > h4 {
+    color: white;
+    margin: 0;
+    padding-left: .5rem;
+    width: 100%;
+}
+
+.floatingWindow > .container > .header > .headerCloseButton {
+    padding: 0rem 0.5rem;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.floatingWindow > .container > .content {
+    max-height: calc(96vh - 2rem);
+    /* display: flex;
+    flex-flow: column nowrap;
+    padding: 0.5rem;
+    flex: 1; */
+    border: 1px solid transparent;
+    padding: 1rem;
+    overflow: hidden;
+    overflow-y: scroll;
+}

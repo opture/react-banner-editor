@@ -34,7 +34,7 @@ class DraggableItem extends Component {
   }
 
   render() {
-    const { isDragging, connectDragSource, onItemClick, onItemDoubleClick, displayText, selected, style } = this.props
+    const { isDragging, connectDragSource, onItemDoubleClick, displayText, selected, style } = this.props
     return connectDragSource(
       <div 
         className={classnames("DraggableItem", this.props.className, { dragging: isDragging, selected: selected })}

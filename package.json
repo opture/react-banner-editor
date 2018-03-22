@@ -3,12 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
+    "@fortawesome/fontawesome-free-brands": "^5.0.7",
+    "@fortawesome/fontawesome-free-regular": "^5.0.7",
+    "@fortawesome/fontawesome-free-solid": "^5.0.7",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "classnames": "^2.2.5",
+    "firebase": "^4.12.0",
     "react": "^16.2.0",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-dropzone": "^4.2.9",
+    "react-scripts": "1.1.1",
+    "react-svg-spinner": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

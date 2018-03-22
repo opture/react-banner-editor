@@ -9,10 +9,24 @@
   margin:2px;
   padding:2px 4px;
 }
+.BannerEditor .BannerElementSettings{
+  display:flex;
+  flex-flow:row;
+}
+.BannerEditor .BannerElementSettings > *{
+  margin:12px;
+}
 .BannerEditor .BannerEditor-editor{
   position:relative;
   box-sizing:border-box;
   border:1px solid silver;
+}
+.BannerEditor .BannerEditor-editor,
+.BannerEditor .BannerEditor-editor .imageDropzone{
+  position:relative;
+  background-position:50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .BannerEditor .BannerElement.selected{
   
@@ -20,4 +34,26 @@
 .BannerEditor .BannerEditor-properties{
   display:flex;
   flex-flow:row nowrap;
+}
+.BannerEditor .ImageDrop,
+.BannerEditor .VideoDrop{
+  width:100%;
+  height:100%;
+  outline:1px dotted red;
+}
+.BannerEditor .formfield{
+  display:block;
+  text-align:left;
+  font-size:14px;
+  white-space:nowrap;
+}
+.BannerEditor .formfield label{
+  text-align:right;
+  display:inline-block;
+  margin-right:12px;
+  width:130px;
+}
+.BannerEditor .formfield input[type="text"]{
+  display:inline-block;
+  width:130px;
 }

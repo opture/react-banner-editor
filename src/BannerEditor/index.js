@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import DroppableContainer from 'components/DroppableContainer'
 import BannerElements from './BannerElements'
 import BannerElement from './BannerElement'
+import BannerSettings from './BannerSettings'
+import ImageDrop from 'components/Inputs/ImageDrop'
+import VideoDrop from 'components/Inputs/VideoDrop'
 
 import './style.css'
-import BannerElementProperties from './BannerElementProperties';
+import BannerElementSettings from './BannerElementSettings';
 
 
 class BannerEditor extends Component {
@@ -12,7 +15,13 @@ class BannerEditor extends Component {
     super(props)
     this.state = {
       selectedElement: null,
+      addVideo:false,
+      addImage:false,
       banner:{
+        actionLoggedOut:'',
+        actionLoggedIn:'',
+        urlLoggedIn:'',
+        urlLoggedOut:'',
         style:{
           display:'inline-block',
         },
@@ -135,9 +144,49 @@ class BannerEditor extends Component {
 
   setSelectedElement = (selectedElement) => {
     const selectedElementIndex = this.state.banner.elements.indexOf(selectedElement)
-    this.setState({selectedElement, selectedElementIndex})
+    this.setState({
+      selectedElement, 
+      selectedElementIndex,
+      editBanner:false
+    })
   }
 
+
+  editBanner = () => {
+    this.setState({
+      selectedElement: null, 
+      selectedElementIndex: null,
+      editBanner:true,
+    })
+  }
+
+  setElementProperty = (name, value) => {
+
+  }
+
+  setElementStyle = (name, value) => {
+
+  }
+  elementStyleChanged = (e) => {
+    console.log('element style changed')
+    const {target} = e
+    const elementIndex = this.state.selectedElementIndex
+    const banner = {
+      ...this.state.banner,
+      elements:[
+        ...this.state.banner.elements,
+      ]
+    }    
+    banner.elements[elementIndex] = {
+      ...banner.elements[elementIndex],
+      style:{
+        ...banner.elements[elementIndex].style,
+        [target.name]:target.value
+      }
+    }
+    
+    this.setState({banner, selectedElement:banner.elements[elementIndex], selectedElementIndex:elementIndex})
+  }
   elementPropertyChanged = (e) => {
     console.log('element property changed')
     const {target} = e
@@ -148,23 +197,65 @@ class BannerEditor extends Component {
         ...this.state.banner.elements,
       ]
     }
-    if (target.name === 'content'){
-      banner.elements[elementIndex] = {
-        ...banner.elements[elementIndex],
-        content:target.value
-      }
-    }else{
-      banner.elements[elementIndex] = {
-        ...banner.elements[elementIndex],
-        style:{
-          ...banner.elements[elementIndex].style,
-          [target.name]:target.value
-        }
-      }
+
+    banner.elements[elementIndex] = {
+      ...banner.elements[elementIndex],
+      [target.name]:target.value
     }
+
     this.setState({banner, selectedElement:banner.elements[elementIndex], selectedElementIndex:elementIndex})
   }
 
+  onBannerSettingsChange = (e) => {
+    const target = e.target,
+      value = target.type === 'checkbox' ? target.checked : target.value,
+      name = target.name,
+      nameSplitted = name.split('.'),
+      banner = {
+        ...this.state.banner
+      }
+
+    if (nameSplitted.length === 1){
+      banner[nameSplitted[0]] = value
+    }else{
+      if (!banner[nameSplitted[0]]) banner[nameSplitted[0]] = {}
+      banner[nameSplitted[0]][nameSplitted[1]] = value
+    }
+
+    this.setState({banner})
+  }
+
+  onChangeImage = (e) => {
+    const target = e.target,
+    value = target.type === 'checkbox' ? target.checked : target.value
+    this.setState({
+      addImage:value,
+      addVideo:false
+    })
+  }
+
+  onChangeVideo = (e) => {
+    const target = e.target,
+    value = target.type === 'checkbox' ? target.checked : target.value
+    this.setState({
+      addImage:false,
+      addVideo:value
+    })
+  }
+  onBannerImageChange = (property,path) => {
+    console.log(property)
+    console.log(path)
+    
+    this.setState({
+      banner:{
+        ...this.state.banner,
+        [property]:path
+      }
+    })
+  }
+  changeBanner = (e) => {
+
+  }
   render() {
     const { banner } = this.state
     const elements = banner.elements.map( element => {
@@ -173,18 +264,40 @@ class BannerEditor extends Component {
     return (
       <div className="BannerEditor">
         <div className="BannerEditor-controls">
-          <BannerElements />
+          <BannerElements 
+            onChangeVideo={this.onChangeVideo} 
+            addVideo={this.state.addVideo} 
+            addImage={this.state.addImage} 
+            onChangeImage={this.onChangeImage}
+          />
         </div>
         <DroppableContainer 
           types={["BannerItem","AddedElement"]}
           itemDropped={this.bannerElementDropped}
         >
-          <div className="BannerEditor-editor" style={{...banner.style}}>
-          {elements}
+          <div className="BannerEditor-editor" style={{...banner.style, backgroundImage:!this.state.addImage && !this.state.addVideo ? `url(${banner.imageUrl})` : null}}>
+          {this.state.addImage 
+            ? <ImageDrop
+                storagePath='banners'
+                imageHeight='100%'
+                imageWidth="100%"
+                alt="Image"
+                placeholder='Drop Image'
+                name="imageUrl"
+                value={banner.imageUrl}
+                onChange={this.onBannerImageChange}
+                onSelected={(file) => this.onBannerImageChange("imageUrl", file)}
+              />
+            : null 
+          }
+          {this.state.addVideo ? <VideoDrop/> : null }
+          {!this.state.addImage && !this.state.addVideo ? elements : null}
           </div>
         </DroppableContainer>
+
         <div className="BannerEditor-properties">
-          <ul>
+          <ul style={{listStyle:'none'}}>
+            <li onClick={()=>{this.editBanner(banner)}}>Banner</li>
             {banner.elements && banner.elements.length
             ? banner.elements.map( element => {
               return <li onClick={()=>{this.setSelectedElement(element)} }>{element.type}</li>
@@ -192,13 +305,21 @@ class BannerEditor extends Component {
             : null
             }
           </ul>
+
           { this.state.selectedElement 
-            ? <BannerElementProperties 
+            ? <BannerElementSettings 
                 element={this.state.selectedElement} 
-                onPropertyChanghe={this.elementPropertyChanged}
+                onPropertyChange={this.elementPropertyChanged}
+                onStyleChange={this.elementStyleChanged}
               /> 
-            : null 
+            : this.state.editBanner
+              ? <BannerSettings 
+                  banner={banner} 
+                  onChange={this.onBannerSettingsChange}
+                /> 
+              : null
           }
+
         </div>
       </div>
     );

@@ -34,6 +34,14 @@ class BannerElements extends Component {
           Video
         </DraggableItem>
 
+        <DraggableItem 
+          type="BannerItem" 
+          item={{type:'html'}}
+        >
+          Html
+        </DraggableItem>
+        <label>Add Image</label><input type="checkbox" name="addImage" checked={this.props.addImage} onChange={this.props.onChangeImage}/>
+        <label>Add Video</label><input type="checkbox" name="addVideo" checked={this.props.addVideo} onChange={this.props.onChangeVideo}/>
       </div>
     );
   }

@@ -1,0 +1,37 @@
+.VideoDrop {
+  position: relative;
+}
+
+.VideoDrop .removeWrapper {
+  position:absolute;
+  display: none;
+  top:10px;
+  transform:translateY(-50%);
+  right:4px;
+  text-align:right;
+  z-index: 100;
+}
+
+.VideoDrop:hover .removeWrapper {
+  display: inline-block;
+}
+
+.VideoDrop .removeWrapper .removeItem {
+  color:red;
+  font-weight:bolder;
+  cursor: pointer;
+}
+
+.videoDropzone{
+  border:1px dashed #dbdbdb;
+  position:relative;
+  overflow:hidden;
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:50% 50%;
+  margin:0 auto;
+  align-self:center;
+}
+.videoDropzone .imagePlaceHolder{
+  text-align:center;
+}

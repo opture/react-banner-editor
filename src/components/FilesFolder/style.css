@@ -1,0 +1,29 @@
+.form-field .folder-fileitem{
+  display:inline-block;
+  border:1px dashed silver;
+  min-height:100px;
+  padding: 4px;
+  margin: 4px 0;
+}
+
+.folder-fileitem > div {
+  position:relative;
+  background-position:50% 50%;
+  background-size:contain;
+  background-repeat: no-repeat;
+  padding-top:100%
+}
+.VideoDrop .floatingWindow .content,
+.ImageDrop .floatingWindow .content{
+  display:flex;
+  flex-flow:row wrap;
+}
+.ImageDrop .floatingWindow .content > *,
+.VideoDrop .floatingWindow .content > *{
+  flex: 0 0 120px;
+  margin-right:4px;
+}
+
+.VideoDrop .folder-fileitem{
+
+}
